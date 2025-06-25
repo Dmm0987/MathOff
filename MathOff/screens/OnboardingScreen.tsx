@@ -32,6 +32,7 @@ const slides = [
     key: '3',
     title: 'Diversas operações',
     description: 'Treine adição, subtração, multiplicação ou divisão — você escolhe!',
+    image: require('../assets/img3.png'),
   },
 ];
 

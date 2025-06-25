@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import styles from '../styles/StyleGame';
-import MathBubblesBackground from '../background/MathBubblesBackground'; // seu componente de bolhas
-import MathSymbolBackground  from '../background/MathSymbolBackground'; // seu componente de bolhas
+import MathBubblesBackground from '../background/MathBubblesBackground';
+import MathSymbolBackground from '../background/MathSymbolBackground';
+import { useScore } from '../../context/ScoreContext'; // CONTEXTO
 
 const { width } = Dimensions.get('window');
 
@@ -30,18 +31,18 @@ const generateEquation = (level: number, operationType: string) => {
   let b = Math.floor(Math.random() * (level * 10)) + 1;
 
   if (op === '/') {
-    a = a * b; // garante divisão exata
+    a = a * b;
   }
 
   const question = `${a} ${op} ${b}`;
   const answer = eval(question);
-
   return { question, answer };
 };
 
 export default function GameScreen() {
   const route = useRoute<any>();
   const navigation = useNavigation();
+  const { addScore } = useScore(); // CONTEXTO
 
   const level = route.params.level;
   const operationType = route.params.operationType || 'any';
@@ -55,8 +56,6 @@ export default function GameScreen() {
 
   const progress = useRef(new Animated.Value(width)).current;
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Barra de cor que vai piscar
   const barColor = useRef(new Animated.Value(0)).current;
 
   const startTimer = () => {
@@ -86,8 +85,14 @@ export default function GameScreen() {
     };
   }, [questionData]);
 
+  // ✅ Salvar score apenas depois do fim do jogo
+  useEffect(() => {
+    if (gameOverVisible && score > 0) {
+      addScore(score);
+    }
+  }, [gameOverVisible]);
+
   const handleWrongAnswer = () => {
-    // Faz a barra piscar vermelho algumas vezes
     Animated.sequence([
       Animated.timing(barColor, { toValue: 1, duration: 150, useNativeDriver: false }),
       Animated.timing(barColor, { toValue: 0, duration: 150, useNativeDriver: false }),
@@ -98,7 +103,7 @@ export default function GameScreen() {
     setLives((prev) => {
       const updated = prev - 1;
       if (updated <= 0) {
-        setGameOverVisible(true);
+        setGameOverVisible(true); // 👈 agora só ativa o fim
       } else {
         newRound();
       }
@@ -115,18 +120,13 @@ export default function GameScreen() {
     }
   };
 
-  const renderLives = () => {
-    return (
-      <View style={styles.livesContainer}>
-        {[...Array(3)].map((_, index) => (
-          <View
-            key={index}
-            style={[styles.lifeDot, { opacity: index < lives ? 1 : 0.2 }]}
-          />
-        ))}
-      </View>
-    );
-  };
+  const renderLives = () => (
+    <View style={styles.livesContainer}>
+      {[...Array(3)].map((_, index) => (
+        <View key={index} style={[styles.lifeDot, { opacity: index < lives ? 1 : 0.2 }]} />
+      ))}
+    </View>
+  );
 
   return (
     <View style={styles.container}>
@@ -140,7 +140,7 @@ export default function GameScreen() {
             width: progress,
             backgroundColor: barColor.interpolate({
               inputRange: [0, 1],
-              outputRange: ['#00cc88', 'red'], // verde normal e vermelho piscando
+              outputRange: ['#00cc88', 'red'],
             }),
           },
         ]}
@@ -155,7 +155,7 @@ export default function GameScreen() {
         placeholder="Digite a resposta"
       />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-         <MathSymbolBackground />
+        <MathSymbolBackground />
         <Text style={styles.buttonText}>Responder</Text>
       </TouchableOpacity>
       <Text style={styles.score}>Pontuação: {score}</Text>
