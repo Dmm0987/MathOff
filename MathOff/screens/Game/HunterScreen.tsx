@@ -3,6 +3,10 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from '../styles/StyleGame';
 import MathSymbolBackground from "../background/MathSymbolBackground"; 
 import LupaBackGround from "../background/LupaBackground"; 
+import { Audio } from 'expo-av';
+
+const successSound = require('../../assets/sounds/acerto.mp3');
+const errorSound = require('../../assets/sounds/erro.mp3');
 
 const generateEquationWithError = (level: number) => {
   const operations = ['+', '-', '*', '/'];
@@ -34,11 +38,26 @@ export default function ErrorHuntMode() {
   const [feedback, setFeedback] = useState<string | null>(null);
   const [score, setScore] = useState(0);
 
+  const playSound = async (soundFile: any) => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(soundFile, { shouldPlay: true });
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (e) {
+      // Falha silenciosa
+    }
+  };
+
   const handleAnswer = (userSaysError: boolean) => {
     if (userSaysError === data.hasError) {
+      playSound(successSound);
       setFeedback('✅ Acertou!');
       setScore(score + 1);
     } else {
+      playSound(errorSound);
       setFeedback('❌ Errou!');
       setScore(score > 0 ? score - 1 : 0);
     }
@@ -70,4 +89,3 @@ export default function ErrorHuntMode() {
     </View>
   );
 }
-

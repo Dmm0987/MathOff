@@ -10,6 +10,10 @@ import { useNavigation } from '@react-navigation/native';
 import styles from '../styles/StyleGame';
 import MathBubblesBackground from '../background/MathBubblesBackground';
 import MathSymbolBackground from '../background/MathSymbolBackground';
+import { Audio } from 'expo-av';
+
+const successSound = require('../../assets/sounds/acerto.mp3');
+const errorSound = require('../../assets/sounds/erro.mp3');
 
 const generateEquation = (level: number, operationType: string) => {
   let operations: string[];
@@ -49,6 +53,19 @@ export default function RelaxScreen() {
   const bgAnim = useRef(new Animated.Value(0)).current;
   const [targetColor, setTargetColor] = useState<'green' | 'red' | null>(null);
 
+  const playSound = async (soundFile: any) => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(soundFile, { shouldPlay: true });
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.isLoaded && status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (e) {
+      // Falha silenciosa
+    }
+  };
+
   const animateBackground = (toValue: number, onEnd?: () => void) => {
     Animated.timing(bgAnim, {
       toValue,
@@ -61,11 +78,13 @@ export default function RelaxScreen() {
 
   const handleSubmit = () => {
     if (Number(input) === questionData.answer) {
+      playSound(successSound);
       setScore(score + 1);
       setFeedback('✅ Correto!');
       setTargetColor('green');
       animateBackground(1);
     } else {
+      playSound(errorSound);
       setFeedback(`❌ Errado! Resposta: ${questionData.answer}`);
       setTargetColor('red');
       animateBackground(1);

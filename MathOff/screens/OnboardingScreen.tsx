@@ -10,13 +10,12 @@ import {
   Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from "./styles/StyleOnboarding";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import styles from "./styles/StyleOnboarding";
 import MathBubblesBackground from './background/MathBubblesBackground';
 import MathSymbolBackground from './background/MathSymbolBackground';
-
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
 
 const { width } = Dimensions.get('window');
@@ -52,9 +51,7 @@ export default function OnboardingScreen() {
     if (currentIndex < slides.length - 1) {
       flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     } else {
-      // salva que o onboarding foi visto
       await AsyncStorage.setItem('onboardingVisto', 'true');
-      // navega para Home sem voltar
       navigation.reset({
         index: 0,
         routes: [{ name: 'Home' }],

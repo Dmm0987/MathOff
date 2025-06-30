@@ -1,21 +1,26 @@
-// LoginScreen.tsx
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import styles from './styles/StyleLogin';
 import BubbleBackground from "./background/BubbleBackground";
 import MathSymbolBackground from './background/MathSymbolBackground';
 import { setUserToken } from '../authSession';
 
+
 type RootParamList = {
   Signup: undefined;
+  Login: undefined;
   Home: undefined;
+  ResetPassword: undefined;
 };
 
 const FIREBASE_API_KEY = "AIzaSyBTnPyNYc2IZNGceCLwC9pvkRA6jz5-uxA";
 
+type AuthNavigationProp = NativeStackNavigationProp<RootParamList>;
+
 export default function LoginScreen() {
-  const navigation = useNavigation<NavigationProp<RootParamList>>();
+  const navigation = useNavigation<AuthNavigationProp>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -60,7 +65,8 @@ export default function LoginScreen() {
         return;
       }
 
-      setUserToken(data.idToken);
+      // Salva o token para manter o usuário logado mesmo fechando o app
+      await setUserToken(data.idToken);
 
       Alert.alert('Sucesso', 'Login realizado com sucesso!');
       navigation.replace('Home');

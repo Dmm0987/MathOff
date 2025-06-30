@@ -1,20 +1,39 @@
-// context/ScoreContext.tsx
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+type ScoreItem = {
+  pontos: number;
+  nivel: number;
+  operacao: string;
+};
 
 type ScoreContextType = {
-  scores: number[];               // lista das pontuações
-  addScore: (score: number) => void;  // função para adicionar uma nova pontuação
-  clearScores: () => void;        // função para limpar as pontuações
+  scores: ScoreItem[];
+  addScore: (pontos: number, nivel: number, operacao: string) => void;
+  clearScores: () => void;
 };
 
 const ScoreContext = createContext<ScoreContextType | undefined>(undefined);
 
-export function ScoreProvider({ children }: { children: ReactNode }) {
-  const [scores, setScores] = useState<number[]>([]);
+const SCORES_KEY = 'userScores';
 
-  const addScore = (score: number) => {
-    setScores(prev => [...prev, score]);
+export function ScoreProvider({ children }: { children: ReactNode }) {
+  const [scores, setScores] = useState<ScoreItem[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const saved = await AsyncStorage.getItem(SCORES_KEY);
+      if (saved) setScores(JSON.parse(saved));
+    })();
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem(SCORES_KEY, JSON.stringify(scores));
+  }, [scores]);
+
+  const addScore = (pontos: number, nivel: number, operacao: string) => {
+    const novoItem: ScoreItem = { pontos, nivel, operacao };
+    setScores(prev => [...prev, novoItem]);
   };
 
   const clearScores = () => {

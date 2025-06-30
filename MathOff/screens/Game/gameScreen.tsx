@@ -13,7 +13,11 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import styles from '../styles/StyleGame';
 import MathBubblesBackground from '../background/MathBubblesBackground';
 import MathSymbolBackground from '../background/MathSymbolBackground';
-import { useScore } from '../../context/ScoreContext'; // CONTEXTO
+import { useScore } from '../../context/ScoreContext'; 
+import { Audio } from 'expo-av';
+
+const successSound = require('../../assets/sounds/acerto.mp3');
+const errorSound = require('../../assets/sounds/erro.mp3');
 
 const { width } = Dimensions.get('window');
 
@@ -42,7 +46,7 @@ const generateEquation = (level: number, operationType: string) => {
 export default function GameScreen() {
   const route = useRoute<any>();
   const navigation = useNavigation();
-  const { addScore } = useScore(); // CONTEXTO
+  const { addScore } = useScore(); 
 
   const level = route.params.level;
   const operationType = route.params.operationType || 'any';
@@ -57,6 +61,21 @@ export default function GameScreen() {
   const progress = useRef(new Animated.Value(width)).current;
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const barColor = useRef(new Animated.Value(0)).current;
+
+  // Função para tocar som
+  const playSound = async (soundFile: any) => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(soundFile);
+      await sound.playAsync();
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (!status.isLoaded || status.didJustFinish) {
+          sound.unloadAsync();
+        }
+      });
+    } catch (e) {
+      // Falha silenciosa se não conseguir tocar o som
+    }
+  };
 
   const startTimer = () => {
     progress.setValue(width);
@@ -87,11 +106,12 @@ export default function GameScreen() {
 
   useEffect(() => {
     if (gameOverVisible && score > 0) {
-      addScore(score);
+      addScore(score, level, operationType);
     }
   }, [gameOverVisible]);
 
   const handleWrongAnswer = () => {
+    playSound(errorSound);
     Animated.sequence([
       Animated.timing(barColor, { toValue: 1, duration: 150, useNativeDriver: false }),
       Animated.timing(barColor, { toValue: 0, duration: 150, useNativeDriver: false }),
@@ -112,6 +132,7 @@ export default function GameScreen() {
 
   const handleSubmit = () => {
     if (Number(input) === questionData.answer) {
+      playSound(successSound);
       setScore(score + 1);
       newRound();
     } else {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import styles from "./styles/StyleSingup";
 
 import BubbleBackground from "./background/BubbleBackground";
@@ -11,10 +12,11 @@ type RootParamList = {
   Login: undefined;
 };
 
+type AuthNavigationProp = NativeStackNavigationProp<RootParamList>;
 const FIREBASE_API_KEY = "AIzaSyBTnPyNYc2IZNGceCLwC9pvkRA6jz5-uxA";
 
 export default function SignupScreen() {
-  const navigation = useNavigation<NavigationProp<RootParamList>>();
+  const navigation = useNavigation<AuthNavigationProp>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -60,7 +62,7 @@ export default function SignupScreen() {
       }
 
       Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!');
-      navigation.replace('Login');
+      navigation.replace('Login'); // ✅ agora sem erro
     } catch (error) {
       console.error('Erro no fetch:', error);
       Alert.alert('Erro', 'Erro ao conectar com o servidor.');

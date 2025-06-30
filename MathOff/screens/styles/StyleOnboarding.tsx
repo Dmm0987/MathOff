@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -6,6 +9,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   slide: {
+    width: width, 
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 30,
@@ -56,4 +60,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 });
-  export default styles;
+
+export default styles;

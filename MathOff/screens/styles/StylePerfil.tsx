@@ -9,6 +9,22 @@ const styles = StyleSheet.create({
   cardsContainer: { paddingBottom: 20 },
   noScore: { fontSize: 16, textAlign: 'center', marginTop: 10 },
 
+  footer: {
+    alignItems: 'center',
+    marginTop: 24,
+    marginBottom: 12,
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#888',
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  statsText: {
+    fontSize: 13,
+    color: '#555',
+  },
+
   card: {
     backgroundColor: '#f1f1f1',
     borderRadius: 12,
@@ -21,6 +37,54 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   cardText: { fontSize: 16 },
+
+  // Card animado de estatísticas
+  statsCard: {
+    backgroundColor: '#fff',
+    borderRadius: 18,
+    padding: 20,
+    marginHorizontal: 24,
+    marginTop: 16,
+    marginBottom: 12,
+    alignItems: 'center',
+    elevation: 8, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+  },
+  statsTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#3b5998',
+    marginBottom: 10,
+  },
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 10,
+  },
+  statsItem: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  statsValue: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#1e90ff',
+  },
+  statsLabel: {
+    fontSize: 14,
+    color: '#888',
+    marginTop: 2,
+  },
+  statsMotivation: {
+    fontSize: 14,
+    color: '#555',
+    textAlign: 'center',
+    marginTop: 8,
+  },
 
   clearButton: {
     marginTop: 10,
@@ -46,4 +110,4 @@ const styles = StyleSheet.create({
   },
   buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
 });
-  export default styles;
+export default styles;
