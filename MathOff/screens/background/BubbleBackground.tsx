@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
-const maxBubbleHeight = height * 0.55; // Limite de subida (55% da tela)
+const maxBubbleHeight = height * 0.55;
 
 const createBubble = () => ({
   left: Math.random() * width,
@@ -63,7 +63,7 @@ export default function BubbleBackground() {
 const styles = StyleSheet.create({
   bubble: {
     position: 'absolute',
-    bottom: -20, // começa fora da tela
-    backgroundColor: 'rgba(173, 216, 230, 0.4)', // azul claro translúcido
+    bottom: -20,
+    backgroundColor: 'rgba(173, 216, 230, 0.4)',
   },
 });

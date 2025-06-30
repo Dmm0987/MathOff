@@ -30,7 +30,7 @@ export default function MathSymbolBackground() {
         }),
       ]).start(() => {
         setSymbols(generateSymbols());
-        animate(); // loop infinito
+        animate();
       });
     };
 
@@ -79,6 +79,6 @@ const styles = StyleSheet.create({
   wrapper: {
     ...StyleSheet.absoluteFillObject,
     overflow: 'hidden',
-    borderRadius: 10, // garante que as bordas do botão sejam respeitadas
+    borderRadius: 10,
   },
 });

@@ -85,7 +85,6 @@ export default function GameScreen() {
     };
   }, [questionData]);
 
-  // ✅ Salvar score apenas depois do fim do jogo
   useEffect(() => {
     if (gameOverVisible && score > 0) {
       addScore(score);
@@ -103,7 +102,7 @@ export default function GameScreen() {
     setLives((prev) => {
       const updated = prev - 1;
       if (updated <= 0) {
-        setGameOverVisible(true); // 👈 agora só ativa o fim
+        setGameOverVisible(true);
       } else {
         newRound();
       }

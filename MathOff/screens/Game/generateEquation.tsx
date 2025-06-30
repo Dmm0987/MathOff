@@ -26,18 +26,16 @@ const generateEquation = (level: number, operationType: string) => {
   let a: number, b: number;
 
   if (level === 1 && (op === '*' || op === '/')) {
-    // Limita a e b até 10 no nível 1 para multiplicação/divisão
     a = Math.floor(Math.random() * 10) + 1;
     b = Math.floor(Math.random() * 10) + 1;
 
     if (op === '/') {
-      b = Math.floor(Math.random() * 10) + 1; // Divisor de 1 a 10
-      const result = Math.floor(Math.random() * 10) + 1; // Resultado de 1 a 10
-      a = b * result; // Garante que a / b é inteiro e resultado ≤ 10
+      b = Math.floor(Math.random() * 10) + 1;
+      const result = Math.floor(Math.random() * 10) + 1;
+      a = b * result;
     }
 
   } else {
-    // Geração padrão para os demais casos
     a = Math.floor(Math.random() * (level * 10)) + 1;
     b = Math.floor(Math.random() * (level * 10)) + 1;
 
@@ -93,7 +91,6 @@ export default function GameScreen() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [questionData]);
 
   const handleWrongAnswer = () => {

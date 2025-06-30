@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import styles from "./styles/StyleChoise";
-import BubbleBackground from "./background/BubbleBackground"; // certifique-se do caminho estar correto
-import MathSymbolBackground  from './background/MathSymbolBackground'; // seu componente de bolhas
+import BubbleBackground from "./background/BubbleBackground";
+import MathSymbolBackground  from './background/MathSymbolBackground';
 
 type RootStackParamList = {
   OperationChoice: { level: number };

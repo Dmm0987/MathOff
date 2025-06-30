@@ -3,15 +3,15 @@ import { View, Animated, Dimensions, StyleSheet, Text } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const MathBubblesBackground = () => {
+const LupaBackground = () => {
   const bubbles = useRef(
     [...Array(20)].map(() => ({
-      x: Math.random() * width, 
+      x: Math.random() * width,
       y: new Animated.Value(height + 50),
       delay: Math.random() * 3000,
-      duration: 4000 + Math.random() * 3000, 
-      symbol: ['+', '-', '*', '/'][Math.floor(Math.random() * 4)],
-      size: 18 + Math.random() * 12,       
+      duration: 4000 + Math.random() * 3000,
+      symbol: ['🔍', '🕵️', '❓'][Math.floor(Math.random() * 3)],
+      size: 18 + Math.random() * 12,
       opacity: 0.3 + Math.random() * 0.7,
     }))
   ).current;
@@ -40,7 +40,7 @@ const MathBubblesBackground = () => {
             position: 'absolute',
             left: bubble.x,
             fontSize: bubble.size,
-            color: 'rgba(173, 216, 230, 0.7)',
+            color: 'rgba(0, 0, 0, 0.4)',
             opacity: bubble.opacity,
             transform: [{ translateY: bubble.y }],
           }}
@@ -52,4 +52,4 @@ const MathBubblesBackground = () => {
   );
 };
 
-export default MathBubblesBackground;
+export default LupaBackground;

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     paddingVertical: 10,
     paddingHorizontal: 25,
-    borderWidth: 2,         // define a espessura da borda
+    borderWidth: 2,
     borderColor: '#009af2',
     borderRadius: 8,
   },

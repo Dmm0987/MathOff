@@ -5,9 +5,8 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import styles from './styles/StyleLogin';
 import BubbleBackground from "./background/BubbleBackground";
 import MathSymbolBackground from './background/MathSymbolBackground';
-import { setUserToken } from '../authSession'; // ajuste o caminho conforme seu projeto
+import { setUserToken } from '../authSession';
 
-// Tipos de rotas da navegação
 type RootParamList = {
   Signup: undefined;
   Home: undefined;
@@ -61,11 +60,10 @@ export default function LoginScreen() {
         return;
       }
 
-      // Armazena o token para controlar sessão
       setUserToken(data.idToken);
 
       Alert.alert('Sucesso', 'Login realizado com sucesso!');
-      navigation.replace('Home'); // Redireciona para a Home
+      navigation.replace('Home');
     } catch (error) {
       console.error('Erro no login:', error);
       Alert.alert('Erro', 'Erro ao conectar com o servidor.');

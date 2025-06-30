@@ -5,15 +5,16 @@ import { Feather } from "@expo/vector-icons";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import styles from "./styles/StyleHome";
 import BubbleBackground from "./background/BubbleBackground"; 
-import MathSymbolBackground  from './background/MathSymbolBackground'; 
-import { getUserToken } from '../authSession'; // ajuste o caminho
+import MathSymbolBackground from "./background/MathSymbolBackground"; 
+import { getUserToken } from "../authSession";
 
 type RootStackParamList = {
   Home: undefined;
   Choice: { level: number };
-  Game: { level: number; operationType: string };
+  Relax: undefined;
   Login: undefined;
   Perfil: undefined;
+  Games: undefined;
 };
 
 export default function HomeScreen() {
@@ -37,21 +38,27 @@ export default function HomeScreen() {
     }
   };
 
+  const goToGames = () => {
+    navigation.navigate("Games");
+  };
+
   return (
     <View style={styles.container}>
-      {/* Fundo animado com bolhas */}
       <BubbleBackground />
 
-      {/* Botão de perfil */}
       <TouchableOpacity style={styles.profileButton} onPress={handleProfilePress}>
         <Feather name="user" size={28} color="#333" />
       </TouchableOpacity>
 
-      {/* Conteúdo principal */}
       <Text style={styles.title}>🧠 MathOff</Text>
       <Text style={styles.subtitle}>Escolha seu nível de desafio:</Text>
 
-      <TouchableOpacity style={[styles.button]} onPress={() => goToOperationChoice(1)}>
+      <TouchableOpacity style={[styles.button]} onPress={goToGames}>
+        <MathSymbolBackground />
+        <Text style={styles.buttonText}>Outros Modos</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.button1]} onPress={() => goToOperationChoice(1)}>
         <MathSymbolBackground />
         <Text style={styles.buttonText}>Nível 1 — Fácil</Text>
       </TouchableOpacity>

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     color: '#666',
     marginBottom: 40,
   },
-  button: {
+  button1: {
     width: '100%',
     backgroundColor: "#04DB68",
     paddingVertical: 18,
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: 'center',
     elevation: 3,
-    borderWidth: 2,         // define a espessura da borda
-    borderColor: 'green',   // define a cor da borda
+    borderWidth: 2, 
+    borderColor: 'green',
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 3,
     shadowColor: '#000',
-    borderWidth: 2,         // define a espessura da borda
+    borderWidth: 2,
     borderColor: 'yellow', 
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
@@ -65,8 +65,23 @@ const styles = StyleSheet.create({
     elevation: 3,
     shadowColor: '#000',
     shadowOpacity: 0.1,
-    borderWidth: 2,         // define a espessura da borda
+    borderWidth: 2,
     borderColor: 'red', 
+    shadowOffset: { width: 0, height: 2 },
+  },
+  button: {
+    width: '100%',
+    backgroundColor: "#3489DE",
+    paddingVertical: 18,
+    paddingHorizontal: 24,
+    borderRadius: 14,
+    marginVertical: 10,
+    alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    borderWidth: 2,
+    borderColor: 'blue', 
     shadowOffset: { width: 0, height: 2 },
   },
   buttonText: {
