@@ -13,6 +13,5 @@ MathOff é um aplicativo educativo e divertido para treinar habilidades matemát
 
 ---
 
-## 📸 Capturas de Tela (opcional)
+## 📸 Capturas de Tela do APP
 
-> *(Adicione prints do seu app aqui, por exemplo usando emulador Android ou Expo)*
