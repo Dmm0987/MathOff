@@ -5,12 +5,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import styles from "./styles/StyleChoise";
 import BubbleBackground from "./background/BubbleBackground";
 import MathSymbolBackground from "./background/MathSymbolBackground";
-
-type RootStackParamList = {
-  Relax: undefined;
-  Hunter: undefined;
-  Game: { level: number; operationType: string };
-};
+import { RootStackParamList } from "../types"; 
 
 export default function OthersGames() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -38,6 +33,13 @@ export default function OthersGames() {
         <Text style={styles.buttonText}>Caça</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: "#dc3545" }]}
+        onPress={() => navigation.navigate("Fast")} // ✅ Agora funciona
+      >
+        <MathSymbolBackground />
+        <Text style={styles.buttonText}>Turbo</Text>
+      </TouchableOpacity>
     </View>
   );
 }

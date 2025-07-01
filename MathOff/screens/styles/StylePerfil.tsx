@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 const styles = StyleSheet.create({
   container: { flex: 1, paddingTop: 60, paddingHorizontal: 20, alignItems: 'center' },
   title: { fontSize: 28, fontWeight: 'bold', marginBottom: 10 },
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 12,
     alignItems: 'center',
-    elevation: 8, // Android shadow
-    shadowColor: '#000', // iOS shadow
+    elevation: 8,
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.18,
     shadowRadius: 8,
@@ -86,28 +87,66 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
 
+  // Botão para limpar apenas a lista
   clearButton: {
     marginTop: 10,
-    backgroundColor: "#E1D045",
-    shadowColor: '#000',
+    backgroundColor: '#E1D045',
+    borderColor: 'gold',
     borderWidth: 2,
-    borderColor: 'yellow', 
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 14,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 3,
   },
-  clearText: { color: '#333', fontWeight: 'bold' },
+  clearText: {
+    color: '#333',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
 
-  logoutButton: {
-    marginTop: 20,
-    backgroundColor: "#E16E46",
-    shadowOpacity: 0.1,
+logoutButton: {
+  position: 'absolute',
+  top: 40,
+  right: 20,
+  backgroundColor: '#E16E46',
+  borderWidth: 2,
+  borderColor: 'red',
+  paddingHorizontal: 12,  
+  paddingVertical: 8,     
+  borderRadius: 14,
+  zIndex: 10,
+  minWidth: 70,          
+  alignItems: 'center',  
+  justifyContent: 'center',
+},
+buttonText: {
+  color: '#fff',
+  fontWeight: 'bold',
+  fontSize: 14,           
+},
+
+
+  dangerButton: {
+    marginTop: 10,
+    backgroundColor: '#ff4d4d',
+    borderColor: '#cc0000',
     borderWidth: 2,
-    borderColor: 'red', 
+    paddingVertical: 10,
     paddingHorizontal: 20,
-    paddingVertical: 12,
     borderRadius: 14,
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 4,
   },
-  buttonText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  dangerText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
 });
+
 export default styles;

@@ -3,10 +3,11 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 80,
-    alignItems: 'center',
-    backgroundColor: '#f2f4f8',
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingTop: 205,
   },
+
   title: {
     fontSize: 28,
     fontWeight: 'bold',
@@ -21,6 +22,13 @@ const styles = StyleSheet.create({
     fontSize: 36,
     marginVertical: 30,
   },
+  finalScore: {
+  fontSize: 28,
+  fontWeight: 'bold',
+  color: '#FFD700',
+  textAlign: 'center',
+  marginVertical: 16,
+},
   input: {
     borderWidth: 1,
     borderColor: '#aaa',
@@ -83,6 +91,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: 'red',
     marginHorizontal: 4,
+  },
+
+  timer: { 
+    fontSize: 18, 
+    position: "absolute", 
+    top: 40, 
+    right: 20 
   },
 });
 

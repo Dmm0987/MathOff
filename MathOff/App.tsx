@@ -13,6 +13,7 @@ import PerfilScreen from './screens/PerfilScreen';
 import OthersGames from './screens/OthersGames';
 import RelaxScreen from './screens/Game/RelaxScreen';
 import HunterScreen from './screens/Game/HunterScreen';
+import FastScreen from './screens/Game/FastScreen';
 
 import { ScoreProvider } from './context/ScoreContext';
 
@@ -33,6 +34,7 @@ export default function App() {
           <Stack.Screen name="Game" component={GameScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Relax" component={RelaxScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Hunter" component={HunterScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Fast" component={FastScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false, title: 'Entrar' }} />
           <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: false, title: 'Cadastrar' }} />
           <Stack.Screen name="Perfil" component={PerfilScreen} options={{ headerShown: false, title: 'Perfil' }} />

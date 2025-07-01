@@ -89,6 +89,48 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
   },
+
+  topLeftButton: {
+  position: "absolute",
+  top: 40,
+  left: 20,
+  zIndex: 10,
+},
+
+modalOverlay: {
+  flex: 1,
+  backgroundColor: "rgba(0,0,0,0.5)",
+  justifyContent: "center",
+  alignItems: "center",
+},
+
+modalBox: {
+  backgroundColor: "#fff",
+  padding: 30,
+  borderRadius: 15,
+  alignItems: "center",
+  width: "80%",
+},
+
+modalTitle: {
+  fontSize: 22,
+  fontWeight: "bold",
+  marginBottom: 20,
+},
+
+modalText: {
+  fontSize: 18,
+  marginLeft: 10,
+  marginRight: 10,
+},
+
+row: {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  width: "100%",
+},
+
 });
 
 export default styles;

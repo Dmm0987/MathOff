@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Text,
   TextInput,
@@ -11,6 +11,7 @@ import styles from '../styles/StyleGame';
 import MathBubblesBackground from '../background/MathBubblesBackground';
 import MathSymbolBackground from '../background/MathSymbolBackground';
 import { Audio } from 'expo-av';
+import { useScore } from '../../context/ScoreContext'; 
 
 const successSound = require('../../assets/sounds/acerto.mp3');
 const errorSound = require('../../assets/sounds/erro.mp3');
@@ -18,12 +19,7 @@ const errorSound = require('../../assets/sounds/erro.mp3');
 const generateEquation = (level: number, operationType: string) => {
   let operations: string[];
   if (operationType === 'any') {
-    operations =
-      level === 1
-        ? ['+', '-']
-        : level === 2
-        ? ['+', '-', '*']
-        : ['+', '-', '*', '/'];
+    operations = level === 1 ? ['+', '-'] : level === 2 ? ['+', '-', '*'] : ['+', '-', '*', '/'];
   } else {
     operations = [operationType];
   }
@@ -39,16 +35,17 @@ const generateEquation = (level: number, operationType: string) => {
 
 export default function RelaxScreen() {
   const navigation = useNavigation();
+  const { addScore } = useScore(); // NOVO
 
   const level = 2;
   const operationType = 'any';
 
-  const [questionData, setQuestionData] = useState(
-    generateEquation(level, operationType)
-  );
+  const [questionData, setQuestionData] = useState(generateEquation(level, operationType));
   const [input, setInput] = useState('');
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState<string | null>(null);
+  const [counter, setCounter] = useState(0);
+  const maxQuestions = 10;
 
   const bgAnim = useRef(new Animated.Value(0)).current;
   const [targetColor, setTargetColor] = useState<'green' | 'red' | null>(null);
@@ -57,13 +54,9 @@ export default function RelaxScreen() {
     try {
       const { sound } = await Audio.Sound.createAsync(soundFile, { shouldPlay: true });
       sound.setOnPlaybackStatusUpdate((status) => {
-        if (status.isLoaded && status.didJustFinish) {
-          sound.unloadAsync();
-        }
+        if (status.isLoaded && status.didJustFinish) sound.unloadAsync();
       });
-    } catch (e) {
-      // Falha silenciosa
-    }
+    } catch (e) {}
   };
 
   const animateBackground = (toValue: number, onEnd?: () => void) => {
@@ -82,24 +75,30 @@ export default function RelaxScreen() {
       setScore(score + 1);
       setFeedback('✅ Correto!');
       setTargetColor('green');
-      animateBackground(1);
     } else {
       playSound(errorSound);
       setFeedback(`❌ Errado! Resposta: ${questionData.answer}`);
       setTargetColor('red');
-      animateBackground(1);
     }
 
+    setCounter(prev => prev + 1);
+
+    animateBackground(1);
     setTimeout(() => {
       setFeedback(null);
-      animateBackground(0, () => {
-        setTargetColor(null);
-      });
+      animateBackground(0, () => setTargetColor(null));
     }, 1500);
 
     setInput('');
     setQuestionData(generateEquation(level, operationType));
   };
+
+  useEffect(() => {
+    if (counter >= maxQuestions) {
+      addScore(score, undefined, undefined, "Relax"); // NOVO
+      navigation.goBack();
+    }
+  }, [counter]);
 
   const backgroundColor = bgAnim.interpolate({
     inputRange: [0, 1],
@@ -116,6 +115,7 @@ export default function RelaxScreen() {
       <MathBubblesBackground style={StyleSheet.absoluteFill} />
       <Text style={styles.title}>Sem contagem</Text>
       <Text style={styles.question}>{questionData.question}</Text>
+
       <TextInput
         style={styles.input}
         keyboardType="numeric"
@@ -124,10 +124,12 @@ export default function RelaxScreen() {
         onSubmitEditing={handleSubmit}
         placeholder="Digite a resposta"
       />
+
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <MathSymbolBackground />
         <Text style={styles.buttonText}>Responder</Text>
       </TouchableOpacity>
+
       <Text style={styles.score}>Pontuação: {score}</Text>
       {feedback && <Text style={styles.feedback}>{feedback}</Text>}
     </Animated.View>

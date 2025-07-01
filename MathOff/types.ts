@@ -7,6 +7,7 @@ export type RootStackParamList = {
   Game: undefined;
   Relax: undefined;
   Hunter: undefined;
+  Fast: undefined;
   Login: undefined;
   Signup: undefined;
   Perfil: undefined;

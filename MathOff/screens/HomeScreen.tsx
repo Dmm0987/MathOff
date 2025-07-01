@@ -7,6 +7,9 @@ import styles from "./styles/StyleHome";
 import BubbleBackground from "./background/BubbleBackground"; 
 import MathSymbolBackground from "./background/MathSymbolBackground"; 
 import { getUserToken } from "../authSession";
+import { Audio } from "expo-av";
+
+const Somb = require('../assets/sounds/somB.mp3');
 
 type RootStackParamList = {
   Home: undefined;
@@ -20,26 +23,29 @@ type RootStackParamList = {
 export default function HomeScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const goToOperationChoice = (level: number) => {
+  const playSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(Somb);
+    await sound.playAsync();
+  };
+
+  const goToOperationChoice = async (level: number) => {
+    await playSound();
     navigation.navigate("Choice", { level });
+  };
+
+  const goToGames = async () => {
+    await playSound();
+    navigation.navigate("Games");
   };
 
   const handleProfilePress = async () => {
     try {
       const token = await getUserToken();
-      if (token) {
-        navigation.navigate("Perfil");
-      } else {
-        navigation.navigate("Login");
-      }
+      navigation.navigate(token ? "Perfil" : "Login");
     } catch (error) {
       Alert.alert("Erro", "Não foi possível verificar o estado do usuário.");
       navigation.navigate("Login");
     }
-  };
-
-  const goToGames = () => {
-    navigation.navigate("Games");
   };
 
   return (
