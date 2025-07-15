@@ -5,19 +5,21 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Linking,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { clearUserToken, clearUserEmail} from '../authSession';
+import { clearUserToken, clearUserEmail } from '../authSession';
 import { useScore } from '../context/ScoreContext';
 import styles from './styles/StylePerfil';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 import AnimatedGradientBackground from './background/AnimatedGradientBackground';
 
+
 type RootParamList = {
   Signup: undefined;
   Login: undefined;
-  Perfil: undefined;  // adiciona Perfil aqui para tipagem correta
+  Perfil: undefined;
 };
 
 type AuthNavigationProp = NativeStackNavigationProp<RootParamList>;
@@ -33,7 +35,7 @@ export default function PerfilScreen() {
 
   const handleLogout = async () => {
     await clearUserToken();
-    await clearUserEmail(); // Limpa o e-mail também
+    await clearUserEmail();
     navigation.replace('Login');
   };
 
@@ -139,6 +141,18 @@ export default function PerfilScreen() {
           </TouchableOpacity>
         </>
       )}
+
+
+      <View style={styles.linksContainer}>
+        <TouchableOpacity onPress={() => Linking.openURL('https://joaop0102.github.io/MathOff_Politicas/politica.html')}>
+          <Text style={styles.linkText}>Política de Privacidade</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => Linking.openURL('https://joaop0102.github.io/MathOff_Politicas/exclusao.html')}>
+          <Text style={styles.linkText}>Política de Exclusão de Conta</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
+
 }

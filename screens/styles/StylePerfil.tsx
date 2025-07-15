@@ -107,26 +107,26 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 
-logoutButton: {
-  position: 'absolute',
-  top: 40,
-  right: 20,
-  backgroundColor: '#E16E46',
-  borderWidth: 2,
-  borderColor: 'red',
-  paddingHorizontal: 12,  
-  paddingVertical: 8,     
-  borderRadius: 14,
-  zIndex: 10,
-  minWidth: 70,          
-  alignItems: 'center',  
-  justifyContent: 'center',
-},
-buttonText: {
-  color: '#fff',
-  fontWeight: 'bold',
-  fontSize: 14,           
-},
+  logoutButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    backgroundColor: '#E16E46',
+    borderWidth: 2,
+    borderColor: 'red',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 14,
+    zIndex: 10,
+    minWidth: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 14,
+  },
 
 
   dangerButton: {
@@ -147,6 +147,19 @@ buttonText: {
     fontWeight: 'bold',
     fontSize: 15,
   },
+  linksContainer: {
+    alignItems: 'center',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+
+  linkText: {
+    color: '#007AFF',
+    textDecorationLine: 'underline',
+    fontSize: 14,
+    marginVertical: 4,
+  },
+
 });
 
-export default styles;
+export default styles;

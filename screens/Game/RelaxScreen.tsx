@@ -123,6 +123,7 @@ export default function RelaxScreen() {
         onChangeText={setInput}
         onSubmitEditing={handleSubmit}
         placeholder="Digite a resposta"
+        placeholderTextColor="#aaa"
       />
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>

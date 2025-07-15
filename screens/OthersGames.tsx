@@ -35,7 +35,7 @@ export default function OthersGames() {
 
       <TouchableOpacity
         style={[styles.button, { backgroundColor: "#dc3545" }]}
-        onPress={() => navigation.navigate("Fast")} // ✅ Agora funciona
+        onPress={() => navigation.navigate("Fast")}
       >
         <MathSymbolBackground />
         <Text style={styles.buttonText}>Turbo</Text>

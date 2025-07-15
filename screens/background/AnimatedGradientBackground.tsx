@@ -1,4 +1,3 @@
-// components/AnimatedGradientBackground.tsx
 import React, { useRef, useEffect } from 'react';
 import { Animated, StyleSheet, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';

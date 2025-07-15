@@ -89,6 +89,7 @@ export default function TurboModeScreen() {
         value={input}
         onChangeText={setInput}
         onSubmitEditing={handleSubmit}
+        placeholderTextColor="#aaa"
         placeholder="Digite a resposta"
         editable={timeLeft > 0}
       />

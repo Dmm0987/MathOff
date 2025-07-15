@@ -65,7 +65,7 @@ export default function SignupScreen() {
       }
 
       await setUserToken(data.idToken); 
-      await setUserEmail(email); // <- salve o email
+      await setUserEmail(email);
 
       Alert.alert('Sucesso', 'Usuário cadastrado com sucesso!');
       navigation.replace('Login');
@@ -82,6 +82,7 @@ export default function SignupScreen() {
 
       <TextInput
         style={styles.input}
+        placeholderTextColor="#aaa"
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -91,6 +92,7 @@ export default function SignupScreen() {
 
       <TextInput
         style={styles.input}
+        placeholderTextColor="#aaa"
         placeholder="Senha"
         value={password}
         onChangeText={setPassword}

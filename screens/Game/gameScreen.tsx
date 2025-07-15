@@ -73,7 +73,7 @@ export default function GameScreen() {
         }
       });
     } catch (e) {
-      // Falha silenciosa se não conseguir tocar o som
+
     }
   };
 
@@ -172,6 +172,7 @@ export default function GameScreen() {
         value={input}
         onChangeText={setInput}
         onSubmitEditing={handleSubmit}
+        placeholderTextColor="#aaa"
         placeholder="Digite a resposta"
       />
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
